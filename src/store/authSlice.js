@@ -17,10 +17,13 @@ const authSlice = createSlice({
         },
         setUser(state,action){
             state.user = action.payload
+        },
+        setToken(state,action){
+            state.token = action.payload
         }
     }
 })
-export const {setStatus,setUser} = authSlice.actions
+export const {setStatus,setUser,setToken} = authSlice.actions
 export default authSlice.reducer
 
 // class AuthHelper{
@@ -59,6 +62,26 @@ export function register(data){
              }
          }
      }
- 
+
+
+
+     export function login(data){
+        return async function loginThunk(dispatch){
+            dispatch(setStatus(STATUSES.LOADING))
+            try {
+                const response = await api.post('user/login',data)
+                if(response.status === 200){
+
+          
+                    dispatch(setStatus(STATUSES.SUCCESS))
+                    dispatch(setToken(response?.data?.data))
+                }else{
+                    dispatch(setStatus(STATUSES.ERROR))
+                }
+            } catch (error) {
+                dispatch(setStatus(STATUSES.ERROR))
+            }
+        }
+    }
 
 // export const AuthClass =  new AuthHelper()

@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
 import { register } from '../../store/authSlice'
+import STATUSES from '../../globals/status/statuses'
 // import { AuthClass } from '../../store/authSlice'
 
 const Register = () => {
     const dispatch  = useDispatch()
+    const navigate = useNavigate()
+    const {status} = useSelector((state)=>state.auth)
     const [data,setData] = useState({
         email : '',
         password : '',
@@ -21,7 +24,18 @@ const Register = () => {
     const handleSubmit = (e)=>{
         e.preventDefault()
         dispatch(register(data))
+    
     }
+
+    useEffect(()=>{
+
+      if(status === STATUSES.SUCCESS ){
+     
+        navigate("/login")
+      }else {
+        navigate("/register")
+      }
+    },[status])
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
