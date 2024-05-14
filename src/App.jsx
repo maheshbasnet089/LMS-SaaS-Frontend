@@ -5,6 +5,7 @@ import Home from "./pages/home/Home"
 import Login from "./pages/auth/Login"
 import { Provider } from "react-redux"
 import store from "./store/store"
+import CreateInstitute from "./pages/institute/CreateInstitute"
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
+        <Route path="create-institute" element={<CreateInstitute />}/>
       </Routes>
     </BrowserRouter>
     </Provider>
